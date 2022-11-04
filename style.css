@@ -1,0 +1,33 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.computer-button{
+    display: inline;
+}
+.wrapper{
+    max-width: 700px;
+    margin: 30px auto;
+}
+.game-title{
+    padding: 15px 0;
+    text-align: center;
+    background-color: blue;
+    color: white;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 30px;
+}
+.you-choise{
+    color: blue;
+}
+.computer-choise{
+    color: red;
+}
+.buttons-group-player{
+    display: flex;
+    gap: 30px;
+}
+.selected{
+    background-color: blue;
+}

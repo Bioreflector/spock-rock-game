@@ -1,54 +1,51 @@
 let youScore = 0;
 let computerScore = 0;
-
 const palyerButtons = document.querySelectorAll('.player-butoon')
 const youChoseOut = document.querySelector('.you-choise')
 const comuterChoiseOut = document.querySelector('.computer-choise')
 const playerScoreOut = document.querySelector('.player-score')
 const computerScoreOut = document.querySelector('.computer-score')
 const massage = document.querySelector('.massage')
-console.log(massage)
-
-const valueGameArr =['rock' , 'paper' , 'scissors']
-
+const computerButtons = document.querySelectorAll('.computer-button')
 palyerButtons.forEach(button => button.addEventListener('click' , startGame))
+// palyerButtons.forEach(button => button.addEventListener('click' , toogleClassSelected))
 
-
-function startGame(){
-    const playerValue = this.id
-    youChoseOut.innerText = this.id
-    const computerValue = computerChose()
+function startGame(event){
+    const {target} = event
+    const playerBtn = target
+    const computerBtm = computerChose()
+    const playerValue = target.title
+    const computerValue = computerChose().title
+    toogleClassSelected(playerBtn , computerBtm)
     game(playerValue , computerValue)
+    outResult(playerValue , computerValue)
 }
-
+function toogleClassSelected(playerBtn , computerBtm){
+    palyerButtons.forEach(button => button.classList.remove('selected'))
+    playerBtn.classList.add('selected')
+    computerButtons.forEach(button => button.classList.remove('selected'))
+    computerBtm.classList.add('selected')   
+}
+function outResult(playerValue , computerValue){
+    youChoseOut.innerText = ` --- ${playerValue}`
+    playerScoreOut.innerText = youScore
+    comuterChoiseOut.innerText = `---${computerValue}`
+    computerScoreOut.innerText = computerScore
+}
 function game(playerValue , computerValue){
-    if(playerValue == 'rock' && computerValue == 'scissors'){
+    if(playerValue == 'Rock' && computerValue == 'Scissors'||
+        playerValue == 'Paper' && computerValue == 'Rock' ||
+        playerValue == 'Scissors' && computerValue == 'Paper'){
         youScore++
-        playerScoreOut.innerText = youScore
         massage.innerText = 'You Win'
     }
-    else if(playerValue == 'paper' && computerValue == 'rock'){
-        youScore++
-        playerScoreOut.innerText = youScore
-        massage.innerText = 'You Win'
-    }
-    else if(playerValue == 'scissors' && computerValue == 'paper'){
-        youScore++
-        playerScoreOut.innerText = youScore
-        massage.innerText = 'You Win'
-    }
-    else if(playerValue == 'rock' && computerValue == 'rock'){
-        massage.innerText = 'Oo'
-    }
-    else if(playerValue == 'paper' && computerValue == 'paper'){
-        massage.innerText = 'Oo'
-    }
-    else if(playerValue == 'scissors' && computerValue == 'scissors'){
+    else if(playerValue == 'Rock' && computerValue == 'Rock'||
+             playerValue == 'Paper' && computerValue == 'Paper'||
+             playerValue == 'Scissors' && computerValue == 'Scissors'){
         massage.innerText = 'Oo'
     }
     else{
         computerScore++
-        computerScoreOut.innerText = computerScore
         massage.innerText = 'You Lose'
     }
 }
@@ -57,7 +54,6 @@ function random(max){
     return Math.floor(Math.random() * max)
 }
 function computerChose(){
-    const computerValue = valueGameArr[random(valueGameArr.length)]
-    comuterChoiseOut.innerText = computerValue
-    return computerValue
+    const randomElement = computerButtons[random(computerButtons.length)]
+    return randomElement
 }
